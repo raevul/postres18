@@ -32,6 +32,8 @@ VALUES (vall1, vall2);
 ```sql
 SELECT * FROM name_of_table;
 -- достает все поля и записи из таблицы
+```
+```sql
 SELECT name_of_column1, name_of_column2 FROM name_of_table;
 -- достает только указанные столбцы из таблицы
 ```
