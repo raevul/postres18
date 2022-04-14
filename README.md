@@ -98,8 +98,9 @@ CREATE TABLE country (
     id serial primary key,
     title varchar(50),
     gimn text,
-    flag_id int unique 
-    foreign key fk_country_flag references flag(id) 
+    flag_id int unique,
+    constraint fk_country_flag
+    foreign key flag_id references flag(id) 
 );
 ```
 ### One to many
@@ -115,7 +116,9 @@ CREATE TABLE post (
     title varchar(100),
     body text,
     photo text,
-    account_id int foreign key fk_account_post references account(id) 
+    account_id int,
+    constraint fk_account_post
+    foreign key accaunt_id references account(id) 
 );
 ```
 ### Many to many
@@ -133,8 +136,13 @@ CREATE TABLE patsient(
 );
 
 CREATE TABLE doctor_patsient (
-    doctor_id int foreign key fk_doctor references doctor(id)
-    patsient_id int foreign key fk_patsient references patsient(id) 
+    doctor_id int,
+    patsient_id int,
+    constraint fk_doctor
+    foreign key doctor_id references doctor(id),
+    
+    constraint fk_patsient
+    foreign key patsient_id references patsient(id) 
 );
 ```
 
@@ -159,7 +167,7 @@ Write from file to db
 ```bash
 psql db_name < file sql
 ```
-write from db to file 
+Write from db to file 
 ```bash
 pg_dump db_name > file.sql
 ```
