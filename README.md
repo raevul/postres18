@@ -1,3 +1,4 @@
+# 
 `\c` -> показывает в какой  бд мы находимся и через какого юзера 
 
 `\c` -> name_of_db -> переключается к этой бд
@@ -10,7 +11,7 @@
 
 `\q` -> выход
 
-
+# Создание БД и Таблиц
 ```sql
 CREATE DATABASE name_of_db;
 -- создает базу данных
@@ -24,11 +25,13 @@ CREATE TABLE name_of_table(
 );
 -- создает таблицу с полями
 ```
+# Заполнение таблиц
 ```sql
 INSERT INTO name_of_table (name_of_column1, name_of_column2) 
 VALUES (vall1, vall2);
 -- добавляет запись в таблицу
 ```
+# Вывод данных 
 ```sql
 SELECT * FROM name_of_table;
 -- достает все поля и записи из таблицы
@@ -37,7 +40,8 @@ SELECT * FROM name_of_table;
 SELECT name_of_column1, name_of_column2 FROM name_of_table;
 -- достает только указанные столбцы из таблицы
 ```
-
+# Связи
+## pk fk
 > primary key (pk) - первичный ключ
 > это ограничение, которое мы указываем на те поля, который должны быть уникальными для того, 
 > чтобы потом их использовать в связях (например в id)
@@ -73,4 +77,13 @@ CREATE TABLE book (
 SELECT author.first_name, book.title
 FROM author
 JOIN book ON author.id = book.id
+```
+# Импорт и экспорт данных
+Write from file to db
+```bash
+psql db_name < file sql
+```
+write from db to file 
+```bash
+pg_dump db_name > file.sql
 ```
