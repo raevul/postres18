@@ -1,4 +1,4 @@
-# 
+# Команды
 `\c` -> показывает в какой  бд мы находимся и через какого юзера 
 
 `\c` -> name_of_db -> переключается к этой бд
@@ -54,15 +54,91 @@ CREATE TABLE author (
     id serial primary key,
     first_name varchar(50),
     last_name varchar(50)
-)
+);
+
 CREATE TABLE book (
     id serial,
     title varchar(100),
     published year,
     author_id int foreign key references author (id)
+);
+```
+## Виды связи (теория)
+> One to one - один к одному 
+Например: 
+* Один автор - одна биография
+* Один флаг - одна страна
+* Один человек - одно сердце
+
+> One to many - один ко многим
+Например:
+
+* Один человек - много клеток, но у одной клетки только один человек
+* Одни родители - много детей, но у одного ребенка только одни родители
+* Один аккаунт - много постов, но у одного поста только один автор (аккаунт)
+* Один makers - много студентов, но у одного студента только один makers
+
+> Many to many - многие ко многим
+Например:
+
+* У человека много друзей и у одного друга много других друзей
+* У доктора много пациентов и у пациента много докторов
+* У пользователя много социальных сетей и у одной соцсети много пользователей
+
+
+## Виды связей (практика)
+### One to one
+```sql
+CREATE TABLE flag (
+    id serial primary key,
+    photo text
 )
+
+CREATE TABLE country (
+    id serial primary key,
+    title varchar(50),
+    gimn text,
+    flag_id int unique 
+    foreign key fk_country_flag references flag(id) 
+);
+```
+### One to many
+```sql
+CREATE TABLE accaunt (
+    id serial primary key,
+    nickname varchar(30) unique,
+    user_password varchar(255)
+);
+
+CREATE TABLE post (
+    id serial primary key,
+    title varchar(100),
+    body text,
+    photo text,
+    account_id int foreign key fk_account_post references account(id) 
+);
+```
+### Many to many
+```sql
+CREATE TABLE doctor(
+    id serial primary key,
+    first_name varchar (30),
+    last_name varchar (50)
+);
+
+CREATE TABLE patsient(
+    id serial primary key,
+    first_name varchar (30),
+    last_name varchar (50)
+);
+
+CREATE TABLE doctor_patsient (
+    doctor_id int foreign key fk_doctor references doctor(id)
+    patsient_id int foreign key fk_patsient references patsient(id) 
+);
 ```
 
+# JOIN
 > JOIN - инструкция, которая  позволяет  в  запросах SELECT брать данные из несколько таблицы 
 
 > INNER JOIN (JOIN) - когда достаются только те записи, у которых есть полная связь
