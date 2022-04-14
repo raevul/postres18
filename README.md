@@ -117,8 +117,8 @@ CREATE TABLE post (
     body text,
     photo text,
     account_id int,
-    constraint fk_account_post
-    foreign key (accaunt_id) references account(id) 
+    constraint fk_accaunt_post
+    foreign key (accaunt_id) references accaunt(id) 
 );
 ```
 ### Many to many
@@ -145,8 +145,8 @@ CREATE TABLE doctor_patsient(
     foreign key (patsient_id) references patsient(id) 
 );
 ```
-
-# JOIN
+# JOINS
+### JOIN (теория)
 > JOIN - инструкция, которая  позволяет  в  запросах SELECT брать данные из несколько таблицы 
 
 > INNER JOIN (JOIN) - когда достаются только те записи, у которых есть полная связь
@@ -157,11 +157,34 @@ CREATE TABLE doctor_patsient(
 
 > RIGHT JOIN - когда достаются все записи с 'правой' таблицы и так же те записи с полной связью
 
+### JOIN (практика) 
 ```sql
 SELECT author.first_name, book.title
 FROM author
 JOIN book ON author.id = book.id
 ```
+### One to one 
+```sql
+SELECT country.title, country.gimn, flag.photo
+FROM country 
+JOIN flag 
+ON country.flag_id = flag.id; 
+```
+### One to many
+```sql
+SELECT accaunt.nickname, post.title, post.photo
+FROM accaunt
+JOIN post
+ON accaunt.id = post.accaunt_id;
+```
+### Many to many
+```sql
+SELECT doctor.first_name as Doctor, patsient.first_name as Patsient
+FROM doctor
+JOIN doctor_patsient as dp ON doctor.id = dp.doctor_id
+JOIN patsient ON patsient.id = dp.patsient_id;
+```
+
 # Импорт и экспорт данных
 Write from file to db
 ```bash
